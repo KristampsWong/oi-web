@@ -1,14 +1,28 @@
-import Markdown from "react-markdown";
+import Markdown from "react-markdown"
 
 export default function ReceivedMessage({ message }) {
   return (
-    <div className="flex items-start gap-4">
-      <div className="bg-white text-black p-2 rounded-full border border-gray-200 h-8 w-8 flex items-center justify-center">
+    <div className="flex items-start gap-4 w-full">
+      <div className="flex-shrink-0 bg-white text-black p-2 rounded-full border border-gray-200 h-8 w-8 flex items-center justify-center">
         <span>OI</span>
       </div>
-      <div className="flex flex-col gap-4">
-        <Markdown>{message}</Markdown>
+      <div className="flex-grow overflow-hidden">
+        <div className="bg-white text-black px-4 py-2 rounded-lg shadow-sm">
+          <Markdown 
+            className="prose prose-sm max-w-none overflow-auto"
+            components={{
+              pre: ({ node, ...props }) => (
+                <pre className="overflow-auto p-4 bg-gray-100 rounded-2xl " {...props} />
+              ),
+              code: ({ node, ...props }) => (
+                <code className="bg-gray-100 rounded px-1 py-0.5" {...props} />
+              ),
+            }}
+          >
+            {message}
+          </Markdown>
+        </div>
       </div>
     </div>
-  );
+  )
 }

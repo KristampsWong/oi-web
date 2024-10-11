@@ -13,7 +13,7 @@ export default function Header() {
     dispatch(cleanMessages())
   }
   return (
-    <div className="flex justify-between items-center w-full ">
+    <div className="flex justify-between items-center w-full  ">
       <div className="text-lg font-semibold text-zinc-600 flex gap-4 items-center">
         <button
           className="hover:bg-neutral-100 transition-colors duration-300 p-2 rounded-lg flex items-center justify-center"

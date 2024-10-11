@@ -17,37 +17,39 @@ import { useSelector } from "react-redux"
 
 export default function MessageContent() {
   const messageList = useSelector((state) => state.conversation.messageList)
-    
+
   return (
-    <>
+    <div className="flex flex-col h-full w-full">
       {messageList.length === 0 ? (
         <FallBack />
       ) : (
-        <div className="flex flex-col h-full">
-          <div className="flex-grow overflow-y-auto pb-2">
-            <Message messageList={messageList} />
+        <>
+          <div className="flex-grow overflow-auto">
+            <div className="mx-auto max-w-3xl w-full">
+              <Message messageList={messageList} />
+            </div>
           </div>
-          <TextInputField />
-        </div>
+          <div className="mt-auto">
+            <TextInputField />
+          </div>
+        </>
       )}
-    </>
+    </div>
   )
 }
 
 function Message({ messageList }) {
   return (
     <>
-      {messageList.map((message, index) => {
-        return (
-          <div key={index} className="my-5">
-            {message.role === "user" ? (
-              <SendMessage message={message.content} />
-            ) : (
-              <ReceivedMessage message={message.content} />
-            )}
-          </div>
-        )
-      })}
+      {messageList.map((message, index) => (
+        <article key={index} className="my-5 w-full">
+          {message.role === "user" ? (
+            <SendMessage message={message.content} />
+          ) : (
+            <ReceivedMessage message={message.content} />
+          )}
+        </article>
+      ))}
     </>
   )
 }

@@ -13,8 +13,9 @@ import {
 } from "react-feather"
 import SendMessage from "@/components/SendMessage"
 import ReceivedMessage from "@/components/ReceivedMessage"
-import { useSelector } from "react-redux"
-
+import { useSelector, useDispatch } from "react-redux"
+import { addMessage } from "@/store/conversationSlice"
+import { createChatSubmitHandler } from "@/lib/ChatHandler"
 export default function MessageContent() {
   const messageList = useSelector((state) => state.conversation.messageList)
 
@@ -56,13 +57,13 @@ function Message({ messageList }) {
 
 function FallBack() {
   return (
-    <div className="flex flex-col w-full h-full items-center justify-center gap-5">
+    <div className="flex flex-col w-full h-full items-center justify-center gap-5 ">
       <div className="hover:scale-110 transition-transform duration-200">
         <Logo size={60} />
       </div>
       <h2 className="text-2xl font-semibold">Hi, how can I help you?</h2>
       <TextInputField />
-      <div className="flex flex-wrap justify-center gap-2">
+      <div className="flex flex-wrap justify-center gap-2 max-w-[48rem]">
         <ItemSugesstion title="Summarize text">
           <FileText size={24} color="#e2c542" />
         </ItemSugesstion>
@@ -90,10 +91,20 @@ function FallBack() {
 }
 
 function ItemSugesstion({ children, title }) {
+
+  const handleChatSubmit = createChatSubmitHandler()
+  const handleSubmit = async () => {
+    await handleChatSubmit(title)
+  }
+
   return (
-    <div className="flex  rounded-full py-2 px-4 gap-2 hover:shadow-sm transition-colors duration-300 hover:bg-zinc-50 items-center border border-gray-200 text-gray-600 text-sm">
+    <button
+      className="flex  rounded-full py-2 px-4 gap-2 hover:shadow-sm transition-colors duration-300
+     hover:bg-zinc-50 items-center border border-gray-200 text-gray-600 text-sm"
+      onClick={handleSubmit}
+    >
       {children}
       <span>{title}</span>
-    </div>
+    </button>
   )
 }

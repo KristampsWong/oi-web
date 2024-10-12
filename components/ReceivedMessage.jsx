@@ -9,13 +9,13 @@ export default function ReceivedMessage({ message }) {
       <div className="flex-grow overflow-hidden">
         <div className="bg-white text-black px-4 py-2 rounded-lg shadow-sm">
           <Markdown 
-            className="prose prose-sm max-w-none overflow-auto"
+            className="overflow-auto gap-4 flex flex-col"
             components={{
               pre: ({ node, ...props }) => (
                 <pre className="overflow-auto p-4 bg-gray-100 rounded-2xl " {...props} />
               ),
               code: ({ node, ...props }) => (
-                <code className="bg-gray-100 rounded px-1 py-0.5" {...props} />
+                <code className="bg-gray-100 rounded px-1 py-0.5 font-medium" {...props} />
               ),
             }}
           >

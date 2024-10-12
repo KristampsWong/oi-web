@@ -10,6 +10,7 @@ export const conversationSlice = createSlice({
   reducers: {
     addMessage: (state, action) => {
       state.messageList.push(action.payload)
+
     },
     cleanMessages: (state) => {
       state.messageList = []

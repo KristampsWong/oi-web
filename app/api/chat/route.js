@@ -3,10 +3,10 @@ import { NextResponse } from "next/server"
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
 
-export async function POST(req, res) {
+export async function POST(req) {
   try {
     const { message } = await req.json()
- 
+
     if (!message) {
       throw new Error("Message is required")
     }
@@ -14,7 +14,7 @@ export async function POST(req, res) {
       messages: message,
       model: "llama-3.1-8b-instant",
     })
-   // console.log(message)
+    // console.log(message)
     return NextResponse.json(response)
   } catch (err) {
     console.log(err)

@@ -1,5 +1,3 @@
-
-import Markdown from "react-markdown"
 export default function SendMessage({ message }) {
   return (
     <div className="flex justify-end ">

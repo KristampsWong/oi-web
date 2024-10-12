@@ -13,9 +13,8 @@ import {
 } from "react-feather"
 import SendMessage from "@/components/SendMessage"
 import ReceivedMessage from "@/components/ReceivedMessage"
-import { useSelector, useDispatch } from "react-redux"
-import { addMessage } from "@/store/conversationSlice"
-import { createChatSubmitHandler } from "@/lib/ChatHandler"
+import { useSelector } from "react-redux"
+import { CreateChatSubmitHandler } from "@/lib/ChatHandler"
 export default function MessageContent() {
   const messageList = useSelector((state) => state.conversation.messageList)
 
@@ -91,8 +90,7 @@ function FallBack() {
 }
 
 function ItemSugesstion({ children, title }) {
-
-  const handleChatSubmit = createChatSubmitHandler()
+  const handleChatSubmit = CreateChatSubmitHandler()
   const handleSubmit = async () => {
     await handleChatSubmit(title)
   }

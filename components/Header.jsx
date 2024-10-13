@@ -3,22 +3,16 @@ import { Edit } from "react-feather"
 // import SignOutButton from "../components/SignOutButton"
 // import SigninButton from "@/components/SigninButton"
 //import { session } from "next-auth/react"
-import { useDispatch } from "react-redux"
-import { cleanMessages } from "../store/conversationSlice"
-export default function Header() {
-  //const session = await auth()
-  const dispatch = useDispatch()
 
-  const handleSubmit = () => {
-    dispatch(cleanMessages())
-  }
+export default function Header({ setMessages }) {
+
   return (
     <div className="flex justify-between items-center w-full py-2">
       <div className="text-lg font-semibold text-zinc-600 flex gap-4 items-center">
         <button
           className="hover:bg-neutral-100 transition-colors duration-300 p-2 rounded-lg flex items-center justify-center"
           type="button"
-          onClick={handleSubmit}
+          onClick={() => setMessages([])}
         >
           <Edit size={22} />
         </button>

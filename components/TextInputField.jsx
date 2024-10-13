@@ -1,31 +1,28 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import { ArrowUp } from "react-feather"
-import { CreateChatSubmitHandler } from "@/lib/ChatHandler"
+import { useRef, useEffect } from "react";
+import { ArrowUp } from "react-feather";
 
-export default function TextInputField() {
-  const [isDisabled, setIsDisabled] = useState(true)
-  const [inputMessage, setInputMessage] = useState("")
-  const textareaRef = useRef(null)
+export default function TextInputField({
+  input,
+  handleInputChange,
+  handleSubmit,
+}) {
+  const isDisabled = false;
+  const textareaRef = useRef(null);
 
   useEffect(() => {
-    adjustTextareaHeight()
-  }, [inputMessage])
+    adjustTextareaHeight();
+  }, [input]);
 
   const adjustTextareaHeight = () => {
-    const textarea = textareaRef.current
+    const textarea = textareaRef.current;
     if (textarea) {
-      textarea.style.height = "auto"
-      textarea.style.height = `${textarea.scrollHeight}px`
+      textarea.style.height = "auto";
+      textarea.style.height = `${textarea.scrollHeight}px`;
     }
-  }
-  const handleChatSubmit = CreateChatSubmitHandler()
-  const handleSubmit = async () => {
-    await handleChatSubmit(inputMessage)
-    setInputMessage("")
-    setIsDisabled(true)
-  }
+  };
+
   return (
     <div className="mx-auto w-full items-center flex flex-col">
       <div
@@ -37,18 +34,15 @@ export default function TextInputField() {
             ref={textareaRef}
             placeholder="Enter text here"
             className="w-full focus:outline-none bg-transparent resize-none overflow-y-auto max-h-[25dvh]"
-            value={inputMessage}
-            onChange={(e) => {
-              setInputMessage(e.target.value)
-              setIsDisabled(e.target.value.trim() === "")
-            }}
+            value={input}
             onKeyDown={(e) => {
               if (e.key === "Enter" && !e.shiftKey) {
-                e.preventDefault()
-                handleSubmit()
+                e.preventDefault();
+                handleSubmit();
               }
             }}
             rows={1}
+            onChange={handleInputChange}
           />
         </div>
         <button
@@ -62,5 +56,5 @@ export default function TextInputField() {
         </button>
       </div>
     </div>
-  )
+  );
 }

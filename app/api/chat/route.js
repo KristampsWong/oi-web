@@ -1,23 +1,23 @@
-import Groq from "groq-sdk"
-import { NextResponse } from "next/server"
+import { createOpenAI as createGroq } from "@ai-sdk/openai";
+import { convertToCoreMessages, streamText } from "ai";
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY })
+const groq = createGroq({
+  baseURL: "https://api.groq.com/openai/v1",
+  apiKey: process.env.GROQ_API_KEY,
+});
 
 export async function POST(req) {
-  try {
-    const { message } = await req.json()
+  const { messages } = await req.json();
 
-    if (!message) {
-      throw new Error("Message is required")
-    }
-    const response = await groq.chat.completions.create({
-      messages: message,
-      model: "llama-3.1-8b-instant",
-    })
-    // console.log(message)
-    return NextResponse.json(response)
-  } catch (err) {
-    console.log(err)
-    return NextResponse.error()
+  if (!messages) {
+    throw new Error("Message is required");
   }
+
+  const result = await streamText({
+    model: groq("llama-3.1-8b-instant"),
+    messages: convertToCoreMessages(messages),
+  });
+
+  return result.toDataStreamResponse();
+  // return NextResponse.json(text);
 }

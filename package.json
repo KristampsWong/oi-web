@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "eslint --fix ."
   },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.66",
@@ -25,6 +26,8 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.15",
+    "eslint-config-oceanai": "^1.2.3",
+    "eslint-config-oceanai-typescript": "^1.0.2",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"

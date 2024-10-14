@@ -1,6 +1,6 @@
-import React from "react"
-import { Edit } from "react-feather"
-import type { Message } from "ai"
+import React from 'react'
+import { Edit } from 'react-feather'
+import type { Message } from 'ai'
 
 export default function Header({
   setMessages,

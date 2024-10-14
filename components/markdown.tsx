@@ -1,12 +1,14 @@
-import Link from "next/link"
-import React, { memo } from "react"
-import ReactMarkdown from "react-markdown"
+/* eslint-disable @typescript-eslint/no-shadow, import/prefer-default-export */
+import Link from 'next/link'
+import React, { memo } from 'react'
+import ReactMarkdown from 'react-markdown'
 
 const NonMemoizedMarkdown = ({ children }: { children: string }) => {
   const components = {
-   /* eslint-disable */
-    code: ({ node, inline, className, children, ...props }: any) => {
-      const match = /language-(\w+)/.exec(className || "")
+    code: ({
+      node, inline, className, children, ...props
+    }: any) => {
+      const match = /language-(\w+)/.exec(className || '')
       return !inline && match ? (
         <pre
           {...props}
@@ -23,36 +25,27 @@ const NonMemoizedMarkdown = ({ children }: { children: string }) => {
         </code>
       )
     },
-    ol: ({ node, children, ...props }: any) => {
-      return (
+    ol: ({ node, children, ...props }: any) => (
         <ol className="list-decimal list-outside ml-4" {...props}>
           {children}
         </ol>
-      )
-    },
-    li: ({ node, children, ...props }: any) => {
-      return (
+    ),
+    li: ({ node, children, ...props }: any) => (
         <li className="py-1" {...props}>
           {children}
         </li>
-      )
-    },
-    ul: ({ node, children, ...props }: any) => {
-      return (
-        <ul className="list-decimal list-outside ml-4" {...props}>
+    ),
+    ul: ({ node, children, ...props }: any) => (
+        <ul className="list-decimal list-outside pl-8" {...props}>
           {children}
         </ul>
-      )
-    },
-    strong: ({ node, children, ...props }: any) => {
-      return (
+    ),
+    strong: ({ node, children, ...props }: any) => (
         <span className="font-semibold" {...props}>
           {children}
         </span>
-      )
-    },
-    a: ({ node, children, ...props }: any) => {
-      return (
+    ),
+    a: ({ node, children, ...props }: any) => (
         <Link
           className="text-blue-500 hover:underline"
           target="_blank"
@@ -61,14 +54,12 @@ const NonMemoizedMarkdown = ({ children }: { children: string }) => {
         >
           {children}
         </Link>
-      )
-    },
+    ),
   }
-   /* eslint-enable */
   return <ReactMarkdown components={components}>{children}</ReactMarkdown>
 }
 
 export const Markdown = memo(
   NonMemoizedMarkdown,
-  (prevProps, nextProps) => prevProps.children === nextProps.children
+  (prevProps, nextProps) => prevProps.children === nextProps.children,
 )

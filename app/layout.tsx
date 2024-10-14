@@ -1,8 +1,9 @@
-import type { Metadata } from "next"
-import "./globals.css"
+import type { Metadata } from 'next'
+import './globals.css'
+
 export const metadata: Metadata = {
-  title: "Chat with Pion",
-  description: "Pion is a chatbot that powered by Ocean AI",
+  title: 'Chat with Pion',
+  description: 'Pion is a chatbot that powered by Ocean AI',
 }
 
 export default function RootLayout({

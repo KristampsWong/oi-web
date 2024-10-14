@@ -1,6 +1,6 @@
-import React from "react"
+import React from 'react'
 
-export default function Logo({ size = 50, color = "black", ...props }) {
+export default function Logo({ size = 50, color = 'black', ...props }) {
   const height = size
   const width = size
   const space = size / 5

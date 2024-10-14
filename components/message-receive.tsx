@@ -1,7 +1,8 @@
-import { Markdown } from "./markdown"
+import { Markdown } from './markdown'
+
 export default function ReceivedMessage({ message }: { message: string }) {
   return (
-    <div className="flex items-start gap-4 w-full">
+    <div className="flex items-start gap-4 w-full px-1">
       <div className="flex-shrink-0 bg-white text-black p-2 rounded-full border border-gray-200 h-8 w-8 flex items-center justify-center">
         <span>OI</span>
       </div>

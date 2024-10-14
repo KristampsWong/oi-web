@@ -1,11 +1,14 @@
 import React from "react"
 import { Edit } from "react-feather"
-// import SignOutButton from "../components/SignOutButton"
-// import SigninButton from "@/components/SigninButton"
-//import { session } from "next-auth/react"
+import type { Message } from "ai"
 
-export default function Header({ setMessages }) {
-
+export default function Header({
+  setMessages,
+}: {
+  setMessages: (
+    messages: Message[] | ((messages: Message[]) => Message[])
+  ) => void
+}) {
   return (
     <div className="flex justify-between items-center w-full py-2">
       <div className="text-lg font-semibold text-zinc-600 flex gap-4 items-center">
@@ -20,7 +23,6 @@ export default function Header({ setMessages }) {
       </div>
 
       <div className="flex gap-4 items-center">
-        {/* <div>{session?.user ? <SignOutButton /> : <SigninButton />}</div> */}
         <a
           href="https://oceanai.so"
           className="bg-white text-black border border-gray-200 rounded-full text-sm px-3 py-2"

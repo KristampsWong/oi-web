@@ -13,6 +13,7 @@ import {
 } from 'react-feather'
 import MultimodalInput from '@/components/multimodal-input'
 import type { ChatRequestOptions, Message, CreateMessage } from 'ai'
+import { motion } from 'framer-motion'
 
 const suggestions = [
   { icon: <FileText size={24} color="#e2c542" />, title: 'Summarize text' },
@@ -33,16 +34,24 @@ function ItemSugesstion({
   title: string
   onClick: () => void
 }) {
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  }
   return (
-    <button
+    <motion.button
       className="flex rounded-full py-2 px-4 gap-2 hover:shadow-sm transition-colors duration-300
      hover:bg-zinc-50 items-center border border-gray-200 text-gray-600 text-sm
      w-[calc(50%-0.5rem)] sm:w-auto"
       onClick={onClick}
+      variants={item}
     >
       {children}
       <span>{title}</span>
-    </button>
+    </motion.button>
   )
 }
 
@@ -75,6 +84,18 @@ export default function HomePage({
     chatRequestOptions?: ChatRequestOptions
   ) => Promise<string | null | undefined>
 }) {
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  }
+
   return (
     <>
       <main className="min-h-svh flex flex-col items-center justify-center px-2">
@@ -84,6 +105,7 @@ export default function HomePage({
           <div className="hover:scale-110 transition-transform duration-200">
             <Logo size={60} />
           </div>
+
           <h2 className="text-2xl font-semibold">Hi, how can I help you?</h2>
           <MultimodalInput
             input={input}
@@ -91,7 +113,12 @@ export default function HomePage({
             handleSubmit={handleSubmit}
             isLoading={isLoading}
           />
-          <div className="flex flex-wrap justify-center gap-2 max-w-[48rem]">
+          <motion.div
+            className="flex flex-wrap justify-center gap-2 max-w-[48rem]"
+            variants={container}
+            initial="hidden"
+            animate="visible"
+          >
             {suggestions.map((suggestion, index) => (
               <ItemSugesstion
                 key={index}
@@ -106,7 +133,7 @@ export default function HomePage({
                 {suggestion.icon}
               </ItemSugesstion>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         <span className="text-xs text-zinc-500 py-2 mx-auto text-center">

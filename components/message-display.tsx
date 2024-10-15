@@ -45,7 +45,7 @@ export default function MessageContent({
         className="flex flex-col h-full items-center overflow-y-scroll"
         ref={messagesContainerRef}
       >
-        <MessageList messages={messages} />
+        <MessageList messages={messages} isLoading={isLoading} />
 
         <div
           ref={messagesEndRef}

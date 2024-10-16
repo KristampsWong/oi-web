@@ -1,32 +1,35 @@
 /* eslint-disable */
-import Link from 'next/link'
-import React, { memo } from 'react'
-import ReactMarkdown from 'react-markdown'
-import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter'
-import vscdarkplus from 'react-syntax-highlighter/dist/cjs/styles/prism/vsc-dark-plus'
-import remarkGfm from 'remark-gfm'
+import Link from "next/link"
+import React, { memo } from "react"
+import ReactMarkdown from "react-markdown"
+import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter"
+import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism"
+import remarkGfm from "remark-gfm"
 
 const NonMemoizedMarkdown = ({ children }: { children: string }) => {
   const components = {
-    code: ({
-      node, inline, className, children, ...props
-    }: any) => {
-      const match = /language-(\w+)/.exec(className || '')
-      const langugae = match ? match[1] : ''
+    code: ({ node, inline, className, children, ...props }: any) => {
+      const match = /language-(\w+)/.exec(className || "")
+      const langugae = match ? match[1] : ""
       return !inline && match ? (
         <>
-          <div className="rounded-t-lg h-9 bg-zinc-700 text-sm text-neutral-400 font-sans px-4 py-2">
+          <div className="h-9 bg-neutral-50 text-sm text-zinc-700 font-sans px-4 py-2 border-t border-x border-gray-200 rounded-t-lg">
             {langugae}
           </div>
           <SyntaxHighlighter
             PreTag="div"
-            children={String(children).replace(/\n$/, '')}
+            children={String(children).replace(/\n$/, "")}
             language={langugae}
-            style={vscdarkplus}
+            style={oneLight}
             customStyle={{
               marginTop: 0,
+              borderTopRightRadius:0,
+              borderTopLeftRadius:0,
               borderBottomLeftRadius: 8,
               borderBottomRightRadius: 8,
+              borderBottom: "1px solid #e5e7eb",
+              borderLeft: "1px solid #e5e7eb",
+              borderRight: "1px solid #e5e7eb",
             }}
           />
         </>
@@ -90,5 +93,5 @@ const NonMemoizedMarkdown = ({ children }: { children: string }) => {
 
 export const Markdown = memo(
   NonMemoizedMarkdown,
-  (prevProps, nextProps) => prevProps.children === nextProps.children,
+  (prevProps, nextProps) => prevProps.children === nextProps.children
 )

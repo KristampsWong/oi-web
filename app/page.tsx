@@ -1,10 +1,9 @@
-"use client"
+'use client'
 
-import { useChat } from "ai/react"
-import Header from "@/components/navbar"
-import { useState } from "react"
-import MultimodalInput from "@/components/multimodal-input"
-import ItemSugesstion from "@/components/ItemSugesstion"
+import { useChat } from 'ai/react'
+import Header from '@/components/navbar'
+import MultimodalInput from '@/components/multimodal-input'
+import ItemSugesstion from '@/components/ItemSugesstion'
 import {
   FileText,
   Edit3,
@@ -13,22 +12,23 @@ import {
   Map,
   Gift,
   Coffee,
-} from "react-feather"
-import { useScrollToBottom } from "@/components/use-scroll-to-bottom"
-import Logo from "@/components/Logo"
-import { motion } from "framer-motion"
-
-import MessageList from "@/components/message-list"
-import SidebarContent from "@/components/sidebar-content"
+} from 'react-feather'
+import { useScrollToBottom } from '@/components/use-scroll-to-bottom'
+import Logo from '@/components/Logo'
+import { motion } from 'framer-motion'
+import { useSelector } from 'react-redux'
+import MessageList from '@/components/message-list'
+import SidebarContent from '@/components/sidebar-content'
+import { RootState } from '@/store/store'
 
 const suggestions = [
-  { icon: <FileText size={24} color="#e2c542" />, title: "Summarize text" },
-  { icon: <Briefcase size={24} color="#6c71ff" />, title: "Make a plan" },
-  { icon: <Edit3 size={24} color="#76d0eb" />, title: "Help me write" },
-  { icon: <Book size={24} color="#ea8445" />, title: "Get an advice" },
-  { icon: <Coffee size={24} color="#cb8bd0" />, title: "Tell me a joke" },
+  { icon: <FileText size={24} color="#e2c542" />, title: 'Summarize text' },
+  { icon: <Briefcase size={24} color="#6c71ff" />, title: 'Make a plan' },
+  { icon: <Edit3 size={24} color="#76d0eb" />, title: 'Help me write' },
+  { icon: <Book size={24} color="#ea8445" />, title: 'Get an advice' },
+  { icon: <Coffee size={24} color="#cb8bd0" />, title: 'Tell me a joke' },
   { icon: <Map size={24} color="#76d0eb" />, title: "What's fun there" },
-  { icon: <Gift size={24} color="#ea8445" />, title: "Suprise me" },
+  { icon: <Gift size={24} color="#ea8445" />, title: 'Suprise me' },
 ]
 
 export default function Page() {
@@ -42,8 +42,7 @@ export default function Page() {
     stop,
     append,
   } = useChat()
-  const [messagesContainerRef, messagesEndRef] =
-    useScrollToBottom<HTMLDivElement>()
+  const [messagesContainerRef, messagesEndRef] = useScrollToBottom<HTMLDivElement>()
   const container = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
@@ -55,29 +54,21 @@ export default function Page() {
       },
     },
   }
-  const [isLogin, setIsLogin] = useState(false)
-  const [isSidebar, setIsSidebar] = useState(false)
+  const isSidebarOpen = useSelector(
+    (state: RootState) => state.chat.isSidebarOpen,
+  )
+
   return (
     <main className="h-svh flex ">
       <div
         className={`${
-          isSidebar ? "w-64 visible" : " w-0 invisible"
+          isSidebarOpen ? 'w-64 visible' : ' w-0 invisible'
         } z-[1] flex-shrink-0 overflow-x-hidden transition-all duration-300 border-r border-gray-200 absolute sm:relative h-full bg-white`}
       >
-        <SidebarContent
-          isSidebar={isSidebar}
-          setIsSidebar={setIsSidebar}
-          setMessages={setMessages}
-        />
+        <SidebarContent setMessages={setMessages} />
       </div>
       <div className="w-full flex flex-col items-center px-2 ">
-        <Header
-          setMessages={setMessages}
-          isLogin={isLogin}
-          setIsSidebar={setIsSidebar}
-          setIsLogin={setIsLogin}
-          isSidebar={isSidebar}
-        />
+        <Header setMessages={setMessages} />
 
         {messages.length > 0 && (
           <div
@@ -96,8 +87,8 @@ export default function Page() {
         <div
           className={`${
             messages.length === 0
-              ? "flex flex-col items-center justify-center h-full gap-5"
-              : "mt-auto px-2 w-full"
+              ? 'flex flex-col items-center justify-center h-full gap-5'
+              : 'mt-auto px-2 w-full'
           } `}
         >
           {messages.length === 0 && (
@@ -131,7 +122,7 @@ export default function Page() {
                   onClick={async () => {
                     await append({
                       content: suggestion.title,
-                      role: "user",
+                      role: 'user',
                     })
                   }}
                 >

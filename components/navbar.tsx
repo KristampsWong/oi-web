@@ -1,31 +1,31 @@
 import React from 'react'
 import { Edit, Sidebar } from 'react-feather'
 import type { Message } from 'ai'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '@/store/store'
+import { openSidebar, closeSidebar } from '@/store/chat-reducer'
 
 export default function Header({
   setMessages,
-  isLogin,
-  setIsLogin,
-  isSidebar,
-  setIsSidebar,
 }: {
   setMessages: (
     messages: Message[] | ((messages: Message[]) => Message[])
   ) => void
-  isLogin: boolean
-  setIsLogin: (isLogin: boolean) => void
-  isSidebar: boolean
-  setIsSidebar: (isSidebar: boolean) => void
 }) {
+  const { isSidebarOpen } = useSelector((state: RootState) => state.chat)
+  const dispatch = useDispatch()
+  const [isLogin, setIsLogin] = React.useState(true)
   return (
     <div className="flex justify-between items-center w-full py-2 h-14">
       <div className="text-lg font-semibold text-zinc-600 flex gap-4 items-center">
-        <div className={`${!isSidebar ? 'flex ' : 'hidden'}`}>
+        <div className={`${!isSidebarOpen ? 'flex ' : 'hidden'}`}>
           {isLogin && (
             <button
               className="hover:bg-neutral-100 transition-colors duration-300 p-2 rounded-lg flex items-center justify-center "
               type="button"
-              onClick={() => setIsSidebar(!isSidebar)}
+              onClick={() => {
+                dispatch(openSidebar())
+              }}
             >
               <Sidebar size={23} />
             </button>
@@ -47,7 +47,7 @@ export default function Header({
           type="button"
           onClick={() => {
             setIsLogin(!isLogin)
-            setIsSidebar(false)
+            dispatch(closeSidebar())
           }}
         >
           {isLogin ? 'Logout' : 'Login'}

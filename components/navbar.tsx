@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '@/store/store'
 import { openSidebar, closeSidebar } from '@/store/chat-reducer'
 import { useRouter } from 'next/navigation'
-import { i } from 'framer-motion/client'
+
 export default function Header({
   setMessages,
 }: {
@@ -13,7 +13,7 @@ export default function Header({
     messages: Message[] | ((messages: Message[]) => Message[])
   ) => void
 }) {
-  const { isSidebarCollapsed } = useSelector((state: RootState) => state.chat)
+  const isSidebarCollapsed = useSelector((state: RootState) => state.chat.chat.isSidebarCollapsed)
   const dispatch = useDispatch()
   const [isLogin, setIsLogin] = React.useState(true)
   const router = useRouter()
@@ -37,8 +37,9 @@ export default function Header({
             className="hover:bg-neutral-100 transition-colors duration-300 p-2 rounded-lg flex items-center justify-center"
             type="button"
             onClick={() => {
-              setMessages([]) 
-              router.push('/')}
+              setMessages([])
+              router.push('/')
+            }
             }
           >
             <Edit size={22} />
@@ -57,7 +58,6 @@ export default function Header({
             if (isLogin) {
               router.push('/')
             }
-
           }}
         >
           {isLogin ? 'Logout' : 'Login'}

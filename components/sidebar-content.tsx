@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import { Edit } from "react-feather"
-import Logo from "@/components/Logo"
-import { closeSidebar } from "@/store/chat-reducer"
-import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "@/store/store"
+import { Edit } from 'react-feather'
+import Logo from '@/components/Logo'
+import { closeSidebar } from '@/store/chat-reducer'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '@/store/store'
+
 type Conversation = {
   _id: string
 }
@@ -43,13 +43,13 @@ export default function SidebarContent() {
   const loading = false
   const dispatch = useDispatch()
   const isSidebarCollapsed = useSelector(
-    (state: RootState) => state.chat.isSidebarCollapsed
+    (state: RootState) => state.chat.chat.isSidebarCollapsed,
   )
 
   return (
     <div
       className={`${
-        isSidebarCollapsed ? "w-64 visible" : " w-0 invisible"
+        isSidebarCollapsed ? 'w-64 visible' : ' w-0 invisible'
       } z-[1] flex-shrink-0 overflow-x-hidden transition-all duration-300 border-r border-gray-200 absolute sm:relative h-full bg-white`}
     >
       <div className="flex flex-col px-4 w-64">
@@ -86,7 +86,9 @@ export default function SidebarContent() {
               </div>
             </div>
           ) : (
-            <ConversationHistory conversationIds={[{ _id: "daf" }]} />
+            <ConversationHistory
+              conversationIds={[{ _id: 'daf' }, { _id: 'fjkd' }]}
+            />
           )}
         </div>
       </div>

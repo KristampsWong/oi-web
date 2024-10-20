@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import ReduxProvider from '@/store/redux-provider'
+import SidebarContent from '@/components/sidebar-content'
 
 export const metadata: Metadata = {
   title: 'Chat with Pion',
@@ -15,7 +16,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ReduxProvider>{children}</ReduxProvider>
+        <ReduxProvider>
+          <main className="flex h-svh">
+            <SidebarContent />
+            {children}
+          </main>
+        </ReduxProvider>
       </body>
     </html>
   )

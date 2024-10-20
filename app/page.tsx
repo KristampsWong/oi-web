@@ -60,21 +60,15 @@ export default function Page() {
   return (
     <main className="h-svh flex ">
       <div
-        className={`transition-all ease-linear duration-300 overflow-hidden border-r border-gray-200 ${
-          isSidebar ? "w-full max-w-[17rem]" : "w-0"
-        } `}
+        className={`${
+          isSidebar ? "w-64 visible" : " w-0 invisible"
+        } z-[1] flex-shrink-0 overflow-x-hidden transition-all duration-300 border-r border-gray-200 absolute sm:relative h-full bg-white`}
       >
-        <div
-          className={`transition-opacity duration-500 ease-in-out  ${
-            isSidebar ? "opacity-100" : "opacity-0"
-          }  w-full text-black py-4  h-full px-4`}
-        >
-          <SidebarContent
-            isSidebar={isSidebar}
-            setIsSidebar={setIsSidebar}
-            setMessages={setMessages}
-          />
-        </div>
+        <SidebarContent
+          isSidebar={isSidebar}
+          setIsSidebar={setIsSidebar}
+          setMessages={setMessages}
+        />
       </div>
       <div className="w-full flex flex-col items-center px-2 ">
         <Header

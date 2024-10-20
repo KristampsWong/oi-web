@@ -43,7 +43,7 @@ export default function MessageList({
   return (
     <>
       {messages.map((message, index) => (
-        <article key={index} className="w-full max-w-3xl my-4">
+        <article key={index} className="w-full max-w-2xl my-4">
           {message.role === 'user' ? (
             <SentMessage message={message.content} />
           ) : (

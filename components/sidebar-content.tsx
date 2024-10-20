@@ -14,7 +14,7 @@ export default function SidebarContent({
   ) => void
 }) {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col px-4 w-64">
       <div className="text-gray-800 flex flex-col gap-4">
         <div className="flex justify-between items-center h-14">
           <div className="flex items-center gap-2 justify-start">

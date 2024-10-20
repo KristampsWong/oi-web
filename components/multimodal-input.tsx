@@ -42,7 +42,7 @@ export default function MultimodalInput({
   return (
     <div className="mx-auto w-full items-center flex flex-col">
       <div
-        className="flex items-center justify-between max-w-[48rem] w-full border border-gray-200 p-2 rounded-[2rem] h-full
+        className="flex items-center justify-between max-w-2xl w-full border border-gray-200 p-2 rounded-[2rem] h-full
       transition-colors duration-300 hover:bg-neutral-50 hover:shadow-sm overflow-hidden"
       >
         <div className="flex items-center pl-4 flex-1 h-full overflow-hidden">
@@ -64,7 +64,7 @@ export default function MultimodalInput({
 
         {isLoading ? (
           <button
-            className="rounded-full text-white bg-black flex w-10 h-10 items-center justify-center"
+            className="rounded-full text-white bg-black flex w-8 h-8 items-center justify-center"
             onClick={(event) => {
               event.preventDefault()
               stop()
@@ -77,7 +77,7 @@ export default function MultimodalInput({
           </button>
         ) : (
           <button
-            className={`text-white rounded-full flex items-center justify-center h-10 w-10 self-end 
+            className={`text-white rounded-full flex items-center justify-center h-8 w-8 self-end 
             ${input.length === 0 ? 'bg-zinc-200' : 'bg-black'}`}
             onClick={handleSubmit}
             disabled={isLoading}

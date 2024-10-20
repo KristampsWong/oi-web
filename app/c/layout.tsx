@@ -1,33 +1,34 @@
-'use client'
+"use client"
 
-import React from 'react'
-import SidebarContent from '@/components/sidebar-content'
-import Header from '@/components/navbar'
-import MultimodalInput from '@/components/multimodal-input'
-import { useChat } from 'ai/react'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/store/store'
+import React from "react"
+import SidebarContent from "@/components/sidebar-content"
+import Header from "@/components/navbar"
+import MultimodalInput from "@/components/multimodal-input"
+import { useChat } from "ai/react"
+import { useSelector } from "react-redux"
+import { RootState } from "@/store/store"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const {
     input,
-
     setMessages,
     isLoading,
     stop,
     handleInputChange,
     handleSubmit,
   } = useChat()
-  const isSidebar = useSelector((state: RootState) => state.chat.isSidebarOpen)
+  const isSidebarCollapsed = useSelector(
+    (state: RootState) => state.chat.isSidebarCollapsed
+  )
 
   return (
     <main className="h-svh flex ">
       <div
         className={`${
-          isSidebar ? 'w-64 visible' : ' w-0 invisible'
+          isSidebarCollapsed ? "w-64 visible" : "w-0 invisible"
         } z-[1] flex-shrink-0 overflow-x-hidden transition-all duration-300 border-r border-gray-200 absolute sm:relative h-full bg-white`}
       >
-        <SidebarContent setMessages={setMessages} />
+        <SidebarContent />
       </div>
       <div className="w-full flex flex-col items-center px-2 ">
         <Header setMessages={setMessages} />

@@ -1,9 +1,11 @@
-import { Edit } from 'react-feather'
-import Logo from '@/components/Logo'
-import type { Message } from 'ai'
-import { closeSidebar } from '@/store/chat-reducer'
-import { useDispatch } from 'react-redux'
+"use client"
 
+import { useState, useEffect } from "react"
+import { Edit } from "react-feather"
+import Logo from "@/components/Logo"
+import { closeSidebar } from "@/store/chat-reducer"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "@/store/store"
 type Conversation = {
   _id: string
 }
@@ -37,52 +39,56 @@ function ConversationHistory({
   )
 }
 
-export default function SidebarContent({
-  setMessages,
-}: {
-  setMessages: (
-    messages: Message[] | ((messages: Message[]) => Message[])
-  ) => void
-}) {
+export default function SidebarContent() {
   const loading = false
   const dispatch = useDispatch()
-  return (
-    <div className="flex flex-col px-4 w-64">
-      <div className="text-gray-800 flex flex-col gap-4">
-        <div className="flex justify-between items-center h-14">
-          <div className="flex items-center gap-2 justify-start">
-            <Logo size={30} />
-            <h1 className="text-2xl font-medium">Ocean AI</h1>
-          </div>
-          <button
-            className="text-black/80 rounded-full border border-gray-200 h-8 w-8 flex items-center justify-center"
-            onClick={() => dispatch(closeSidebar())}
-          >
-            <span className="text-lg">X</span>
-          </button>
-        </div>
+  const isSidebarCollapsed = useSelector(
+    (state: RootState) => state.chat.isSidebarCollapsed
+  )
 
-        <a
-          className="flex items-center gap-2 hover:bg-gray-100 hover:rounded-lg w-full p-2"
-          href="/"
-        >
-          <span className="flex items-center justify-center">
-            <Edit size={22} />
-          </span>
-          <span>New conversation</span>
-        </a>
-      </div>
-      <div className="mt-4">
-        <h2 className="text-lg font-semibold mb-2">History</h2>
-        {loading ? (
-          <div className="flex h-1/3 items-center justify-center ">
-            <div className="animate-spin">
-              <Logo size={15} color="hsla(0,0%,90%,0.7)" />
+  return (
+    <div
+      className={`${
+        isSidebarCollapsed ? "w-64 visible" : " w-0 invisible"
+      } z-[1] flex-shrink-0 overflow-x-hidden transition-all duration-300 border-r border-gray-200 absolute sm:relative h-full bg-white`}
+    >
+      <div className="flex flex-col px-4 w-64">
+        <div className="text-gray-800 flex flex-col gap-4">
+          <div className="flex justify-between items-center h-14">
+            <div className="flex items-center gap-2 justify-start">
+              <Logo size={30} />
+              <h1 className="text-2xl font-medium">Ocean AI</h1>
             </div>
+            <button
+              className="text-black/80 rounded-full border border-gray-200 h-8 w-8 flex items-center justify-center"
+              onClick={() => dispatch(closeSidebar())}
+            >
+              <span className="text-lg">X</span>
+            </button>
           </div>
-        ) : (
-          <ConversationHistory conversationIds={[{ _id: 'daf' }]} />
-        )}
+
+          <a
+            className="flex items-center gap-2 hover:bg-gray-100 hover:rounded-lg w-full p-2"
+            href="/"
+          >
+            <span className="flex items-center justify-center">
+              <Edit size={22} />
+            </span>
+            <span>New conversation</span>
+          </a>
+        </div>
+        <div className="mt-4">
+          <h2 className="text-lg font-semibold mb-2">History</h2>
+          {loading ? (
+            <div className="flex h-1/3 items-center justify-center ">
+              <div className="animate-spin">
+                <Logo size={15} color="hsla(0,0%,90%,0.7)" />
+              </div>
+            </div>
+          ) : (
+            <ConversationHistory conversationIds={[{ _id: "daf" }]} />
+          )}
+        </div>
       </div>
     </div>
   )

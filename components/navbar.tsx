@@ -4,7 +4,8 @@ import type { Message } from 'ai'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '@/store/store'
 import { openSidebar, closeSidebar } from '@/store/chat-reducer'
-
+import { useRouter } from 'next/navigation'
+import { i } from 'framer-motion/client'
 export default function Header({
   setMessages,
 }: {
@@ -12,13 +13,15 @@ export default function Header({
     messages: Message[] | ((messages: Message[]) => Message[])
   ) => void
 }) {
-  const { isSidebarOpen } = useSelector((state: RootState) => state.chat)
+  const { isSidebarCollapsed } = useSelector((state: RootState) => state.chat)
   const dispatch = useDispatch()
   const [isLogin, setIsLogin] = React.useState(true)
+  const router = useRouter()
+
   return (
-    <div className="flex justify-between items-center w-full py-2 h-14">
+    <div className=" flex justify-between items-center w-full py-2 h-14">
       <div className="text-lg font-semibold text-zinc-600 flex gap-4 items-center">
-        <div className={`${!isSidebarOpen ? 'flex ' : 'hidden'}`}>
+        <div className={`${!isSidebarCollapsed ? 'flex ' : 'hidden'}`}>
           {isLogin && (
             <button
               className="hover:bg-neutral-100 transition-colors duration-300 p-2 rounded-lg flex items-center justify-center "
@@ -33,12 +36,15 @@ export default function Header({
           <button
             className="hover:bg-neutral-100 transition-colors duration-300 p-2 rounded-lg flex items-center justify-center"
             type="button"
-            onClick={() => setMessages([])}
+            onClick={() => {
+              setMessages([]) 
+              router.push('/')}
+            }
           >
             <Edit size={22} />
           </button>
         </div>
-        <h4 className="pl-4">Chat with Pion</h4>
+        <h4>Chat with Pion</h4>
       </div>
 
       <div className="flex gap-4 items-center">
@@ -48,6 +54,10 @@ export default function Header({
           onClick={() => {
             setIsLogin(!isLogin)
             dispatch(closeSidebar())
+            if (isLogin) {
+              router.push('/')
+            }
+
           }}
         >
           {isLogin ? 'Logout' : 'Login'}

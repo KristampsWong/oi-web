@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 type ChatState = {
-  isSidebarOpen: boolean
+  isSidebarCollapsed: boolean
 }
 
 const initialState: ChatState = {
-  isSidebarOpen: false,
+  isSidebarCollapsed:
+    typeof window !== "undefined" &&
+    window.localStorage.getItem("isSidebarCollapsed") === "false",
 }
 
 const chatSlice = createSlice({
@@ -13,13 +15,19 @@ const chatSlice = createSlice({
   initialState,
   reducers: {
     toggleSidebar(state) {
-      state.isSidebarOpen = !state.isSidebarOpen
+      localStorage.setItem(
+        "isSidebarCollapsed",
+        JSON.stringify(!state.isSidebarCollapsed)
+      )
+      state.isSidebarCollapsed = !state.isSidebarCollapsed
     },
     openSidebar(state) {
-      state.isSidebarOpen = true
+      localStorage.setItem("isSidebarCollapsed", JSON.stringify(true))
+      state.isSidebarCollapsed = true
     },
     closeSidebar(state) {
-      state.isSidebarOpen = false
+      localStorage.setItem("isSidebarCollapsed", JSON.stringify(false))
+      state.isSidebarCollapsed = false
     },
   },
 })

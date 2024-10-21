@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import { useChat } from "ai/react"
-import Header from "@/components/navbar"
-import MultimodalInput from "@/components/multimodal-input"
-import ItemSugesstion from "@/components/ItemSugesstion"
+import { useChat } from 'ai/react'
+import Header from '@/components/navbar'
+import MultimodalInput from '@/components/multimodal-input'
+import ItemSugesstion from '@/components/ItemSugesstion'
 import {
   FileText,
   Edit3,
@@ -12,19 +12,19 @@ import {
   Map,
   Gift,
   Coffee,
-} from "react-feather"
-import { useScrollToBottom } from "@/components/use-scroll-to-bottom"
-import Logo from "@/components/Logo"
-import { motion } from "framer-motion"
-import MessageList from "@/components/message-list"
+} from 'react-feather'
+import { useScrollToBottom } from '@/components/use-scroll-to-bottom'
+import Logo from '@/components/Logo'
+import { motion } from 'framer-motion'
+import MessageList from '@/components/message-list'
 
 const suggestions = [
-  { icon: <FileText size={24} color="#e2c542" />, title: "Summarize text" },
-  { icon: <Briefcase size={24} color="#6c71ff" />, title: "Make a plan" },
-  { icon: <Edit3 size={24} color="#76d0eb" />, title: "Help me write" },
-  { icon: <Book size={24} color="#ea8445" />, title: "Get an advice" },
-  { icon: <Coffee size={24} color="#cb8bd0" />, title: "Tell me a joke" },
-  { icon: <Gift size={24} color="#ea8445" />, title: "Suprise me" },
+  { icon: <FileText size={24} color="#e2c542" />, title: 'Summarize text' },
+  { icon: <Briefcase size={24} color="#6c71ff" />, title: 'Make a plan' },
+  { icon: <Edit3 size={24} color="#76d0eb" />, title: 'Help me write' },
+  { icon: <Book size={24} color="#ea8445" />, title: 'Get an advice' },
+  { icon: <Coffee size={24} color="#cb8bd0" />, title: 'Tell me a joke' },
+  { icon: <Gift size={24} color="#ea8445" />, title: 'Suprise me' },
   { icon: <Map size={24} color="#76d0eb" />, title: "What's fun there" },
 ]
 
@@ -39,8 +39,7 @@ export default function Page() {
     stop,
     append,
   } = useChat()
-  const [messagesContainerRef, messagesEndRef] =
-    useScrollToBottom<HTMLDivElement>()
+  const [messagesContainerRef, messagesEndRef] = useScrollToBottom<HTMLDivElement>()
   const container = {
     hidden: { opacity: 1, scale: 0 },
     visible: {
@@ -74,8 +73,8 @@ export default function Page() {
       <div
         className={`${
           messages.length === 0
-            ? "flex flex-col items-center justify-center h-full gap-5"
-            : "mt-auto px-2 w-full"
+            ? 'flex flex-col items-center justify-center h-full gap-5'
+            : 'mt-auto px-2 w-full'
         } `}
       >
         {messages.length === 0 && (
@@ -107,7 +106,7 @@ export default function Page() {
                 onClick={async () => {
                   await append({
                     content: suggestion.title,
-                    role: "user",
+                    role: 'user',
                   })
                 }}
               >

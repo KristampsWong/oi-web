@@ -2,5 +2,6 @@
   "extends": ["next/core-web-vitals","oceanai","oceanai-typescript"],
   "parserOptions": {
     "project": "./tsconfig.json"
-  }
+  },
+  "ignorePatterns":["./next.config.mjs, ./lib/utils.ts, ./tailwind.config.js"]
 }

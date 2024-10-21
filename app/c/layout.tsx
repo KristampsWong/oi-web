@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import React from "react"
-import Header from "@/components/navbar"
-import MultimodalInput from "@/components/multimodal-input"
-import { useChat } from "ai/react"
+import React from 'react'
+import Header from '@/components/navbar'
+import MultimodalInput from '@/components/multimodal-input'
+import { useChat } from 'ai/react'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const {

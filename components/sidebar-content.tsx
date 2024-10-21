@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
 
 type Conversation = {
-  _id: string
+  id: string
 }
 function ConversationHistory({
   conversationIds,
@@ -26,11 +26,11 @@ function ConversationHistory({
         <>
           {conversationIds.map((conversation: Conversation) => (
             <a
-              href={`/c/${conversation._id}`}
+              href={`/c/${conversation.id}`}
               className="flex items-center p-2 hover:bg-gray-100 hover:rounded-lg w-full"
-              key={conversation._id}
+              key={conversation.id}
             >
-              <span>{conversation._id}</span>
+              <span>{conversation.id}</span>
             </a>
           ))}
         </>
@@ -50,7 +50,7 @@ export default function SidebarContent() {
     <div
       className={`${
         isSidebarCollapsed ? 'w-64 visible' : ' w-0 invisible'
-      } z-[1] flex-shrink-0 overflow-x-hidden transition-all duration-1000 border-r border-gray-200 absolute sm:relative h-full bg-white`}
+      } z-[1] flex-shrink-0 overflow-x-hidden transition-all duration-300 border-r border-gray-200 absolute sm:relative h-full bg-white`}
     >
       <div className="flex flex-col px-4 w-64">
         <div className="text-gray-800 flex flex-col gap-4">
@@ -87,7 +87,7 @@ export default function SidebarContent() {
             </div>
           ) : (
             <ConversationHistory
-              conversationIds={[{ _id: 'daf' }, { _id: 'fjkd' }]}
+              conversationIds={[{ id: 'daf' }, { id: 'fjkd' }]}
             />
           )}
         </div>

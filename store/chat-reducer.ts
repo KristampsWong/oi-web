@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit"
+/* eslint-disable */
+import { createSlice } from '@reduxjs/toolkit'
 
 type ChatState = {
   isSidebarCollapsed: boolean
@@ -9,7 +10,7 @@ const initialState: ChatState = {
 }
 
 const chatSlice = createSlice({
-  name: "chat",
+  name: 'chat',
   initialState,
   reducers: {
     toggleSidebar(state) {
@@ -26,3 +27,5 @@ const chatSlice = createSlice({
 
 export const { toggleSidebar, openSidebar, closeSidebar } = chatSlice.actions
 export default chatSlice.reducer
+
+/* eslint-disable */

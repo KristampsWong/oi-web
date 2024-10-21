@@ -50,7 +50,7 @@ export default function SidebarContent() {
     <div
       className={`${
         isSidebarCollapsed ? 'w-64 visible' : ' w-0 invisible'
-      } z-[1] flex-shrink-0 overflow-x-hidden transition-all duration-300 border-r border-gray-200 absolute sm:relative h-full bg-white`}
+      } z-[1] flex-shrink-0 overflow-x-hidden transition-all duration-1000 border-r border-gray-200 absolute sm:relative h-full bg-white`}
     >
       <div className="flex flex-col px-4 w-64">
         <div className="text-gray-800 flex flex-col gap-4">

@@ -13,7 +13,7 @@ const NonMemoizedMarkdown = ({ children }: { children: string }) => {
       const langugae = match ? match[1] : ""
       return !inline && match ? (
         <>
-          <div className="h-9 bg-neutral-50 text-sm text-zinc-700 font-sans px-4 py-2 border-t border-x border-gray-200 rounded-t-lg">
+          <div className="h-9 bg-neutral-50 text-xs text-zinc-700 font-sans px-4 py-2 border-t border-x border-gray-200 rounded-t-lg">
             {langugae}
           </div>
           <SyntaxHighlighter
@@ -30,6 +30,7 @@ const NonMemoizedMarkdown = ({ children }: { children: string }) => {
               borderBottom: "1px solid #e5e7eb",
               borderLeft: "1px solid #e5e7eb",
               borderRight: "1px solid #e5e7eb",
+              fontSize: "14px",
             }}
           />
         </>

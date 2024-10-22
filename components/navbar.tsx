@@ -2,12 +2,11 @@
 
 import React from 'react'
 import { Edit, Sidebar, LogOut } from 'react-feather'
-import type { Message } from 'ai'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '@/store/store'
 import { openSidebar, closeSidebar } from '@/store/chat-reducer'
 import { useRouter } from 'next/navigation'
-import { signIn, useSession } from 'next-auth/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import {
   DropdownMenu,
@@ -18,13 +17,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-export default function Header({
-  setMessages,
-}: {
-  setMessages: (
-    messages: Message[] | ((messages: Message[]) => Message[])
-  ) => void
-}) {
+export default function Header() {
   const isSidebarCollapsed = useSelector(
     (state: RootState) => state.chat.chat.isSidebarCollapsed,
   )
@@ -34,8 +27,8 @@ export default function Header({
   const { image, email } = session?.user ?? {}
 
   return (
-    <div className="flex justify-between items-center w-full h-14">
-      <div className="text-lg font-semibold text-zinc-600 flex gap-4 items-center ">
+    <div className="flex justify-between w-full">
+      <div className="text-lg font-semibold text-zinc-600 flex gap-4 items-center h-14">
         <div className={`${!isSidebarCollapsed ? 'flex' : 'hidden'}`}>
           {session && (
             <button
@@ -52,7 +45,6 @@ export default function Header({
             className="hover:bg-neutral-100 transition-colors duration-300 p-2 rounded-lg flex items-center justify-center"
             type="button"
             onClick={() => {
-              setMessages([])
               router.push('/')
             }}
           >
@@ -83,7 +75,12 @@ export default function Header({
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Billing</DropdownMenuItem>
             <DropdownMenuItem>Team</DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                dispatch(closeSidebar())
+                signOut()
+              }}
+            >
               <LogOut size={16} />
               Logout
             </DropdownMenuItem>
@@ -94,10 +91,7 @@ export default function Header({
           <button
             className="bg-black text-white border border-gray-200 rounded-full text-sm px-4 py-1.5"
             type="button"
-            onClick={() => {
-              signIn()
-              dispatch(closeSidebar())
-            }}
+            onClick={() => signIn()}
           >
             Login
           </button>

@@ -1,7 +1,6 @@
 'use client'
 
 import { useChat } from 'ai/react'
-import Header from '@/components/navbar'
 import MultimodalInput from '@/components/multimodal-input'
 import ItemSugesstion from '@/components/ItemSugesstion'
 import {
@@ -34,7 +33,6 @@ export default function Page() {
     input,
     handleInputChange,
     handleSubmit,
-    setMessages,
     isLoading,
     stop,
     append,
@@ -54,8 +52,6 @@ export default function Page() {
 
   return (
     <>
-      <Header setMessages={setMessages} />
-
       {messages.length > 0 && (
         <div
           className="flex flex-col h-full items-center overflow-y-scroll w-full"

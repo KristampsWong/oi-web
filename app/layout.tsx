@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 import ReduxProvider from '@/store/redux-provider'
 import SidebarContent from '@/components/sidebar-content'
-import { useMemo } from 'react'
 import { SessionProvider } from 'next-auth/react'
+import Header from '@/components/navbar'
 
 export const metadata: Metadata = {
   title: 'Chat with Pion',
@@ -15,16 +15,15 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const sidebar = useMemo(() => <SidebarContent />, [])
-
   return (
     <html lang="en">
       <body>
         <SessionProvider>
           <ReduxProvider>
             <main className="flex h-svh">
-              {sidebar}
+              <SidebarContent />
               <div className="w-full flex flex-col items-center px-4 ">
+                <Header />
                 {children}
               </div>
             </main>

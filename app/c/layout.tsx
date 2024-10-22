@@ -1,14 +1,12 @@
 'use client'
 
 import React from 'react'
-import Header from '@/components/navbar'
 import MultimodalInput from '@/components/multimodal-input'
 import { useChat } from 'ai/react'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const {
     input,
-    setMessages,
     isLoading,
     stop,
     handleInputChange,
@@ -17,7 +15,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Header setMessages={setMessages} />
       {children}
       <div className="mt-auto px-2 w-full">
         <MultimodalInput

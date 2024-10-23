@@ -1,8 +1,9 @@
-'use client'
+"use client"
 
-import type { ChatRequestOptions } from 'ai'
-import { useRef, useEffect } from 'react'
-import { ArrowUp } from 'react-feather'
+import { auth } from "@/auth"
+import type { ChatRequestOptions } from "ai"
+import { useRef, useEffect } from "react"
+import { ArrowUp } from "react-feather"
 
 export default function MultimodalInput({
   input,
@@ -16,8 +17,8 @@ export default function MultimodalInput({
   stop?: () => void
   handleInputChange: (
     e:
-    | React.ChangeEvent<HTMLInputElement>
-    | React.ChangeEvent<HTMLTextAreaElement>
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
   ) => void
   handleSubmit: (
     event?: {
@@ -31,14 +32,14 @@ export default function MultimodalInput({
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current
     if (textarea) {
-      textarea.style.height = 'auto'
+      textarea.style.height = "auto"
       textarea.style.height = `${textarea.scrollHeight}px`
     }
   }
   useEffect(() => {
     adjustTextareaHeight()
   }, [input])
-
+  const token = 'eybdd'
   return (
     <div className="mx-auto w-full items-center flex flex-col">
       <div
@@ -52,7 +53,7 @@ export default function MultimodalInput({
             className="w-full focus:outline-none bg-transparent resize-none overflow-y-auto max-h-[25dvh]"
             value={input}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
+              if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault()
                 handleSubmit()
               }
@@ -78,7 +79,7 @@ export default function MultimodalInput({
         ) : (
           <button
             className={`text-white rounded-full flex items-center justify-center h-8 w-8 self-end 
-            ${input.length === 0 ? 'bg-zinc-200' : 'bg-black'}`}
+            ${input.length === 0 ? "bg-zinc-200" : "bg-black"}`}
             onClick={handleSubmit}
             disabled={isLoading}
           >

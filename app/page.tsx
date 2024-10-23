@@ -36,7 +36,11 @@ export default function Page() {
     isLoading,
     stop,
     append,
-  } = useChat()
+  } = useChat({
+    headers: {
+      Authorization: `Bearer dddd`,
+    },
+  })
   const [messagesContainerRef, messagesEndRef] = useScrollToBottom<HTMLDivElement>()
   const container = {
     hidden: { opacity: 1, scale: 0 },

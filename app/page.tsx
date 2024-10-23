@@ -38,7 +38,7 @@ export default function Page() {
     append,
   } = useChat({
     headers: {
-      Authorization: `Bearer dddd`,
+      Authorization: 'Bearer dddd',
     },
   })
   const [messagesContainerRef, messagesEndRef] = useScrollToBottom<HTMLDivElement>()

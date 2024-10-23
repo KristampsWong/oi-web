@@ -1,23 +1,23 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 declare global {
   // eslint-disable-next-line vars-on-top, no-var
-  var db: any; // This must be a `var` and not a `let / const`
+  var db: any // This must be a `var` and not a `let / const`
 }
 
-let cached = global.db;
+let cached = global.db
 
 if (!cached) {
-  global.db = { conn: null, promise: null };
-  cached = global.db;
+  global.db = { conn: null, promise: null }
+  cached = global.db
 }
 
-const MONGODB_URI = process.env.MONGODB_URI!;
+const MONGODB_URI = process.env.MONGODB_URI!
 
 if (!MONGODB_URI) {
   throw new Error(
     'Please define the MONGODB_URI environment variable inside .env.local',
-  );
+  )
 }
 
 /**
@@ -35,24 +35,24 @@ if (!MONGODB_URI) {
  */
 const dbConnect = async () => {
   if (cached.conn) {
-    return cached.conn;
+    return cached.conn
   }
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
-    };
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mg) => mg);
+    }
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mg) => mg)
   }
   try {
-    cached.conn = await cached.promise;
-    console.log('mongoDB connected ...');
+    cached.conn = await cached.promise
+    console.log('mongoDB connected ...')
   } catch (error) {
-    cached.promise = null;
-    console.log(`Error connecting to MongoDB: ${error}`);
-    throw error;
+    cached.promise = null
+    console.log(`Error connecting to MongoDB: ${error}`)
+    throw error
   }
 
-  return cached.conn;
-};
+  return cached.conn
+}
 
-export default dbConnect;
+export default dbConnect

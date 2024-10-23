@@ -1,9 +1,9 @@
-import mongoose, { models } from "mongoose";
+import mongoose, { models } from 'mongoose'
 
 const messageSchema = new mongoose.Schema({
   role: {
     type: String,
-    enum: ["user", "assistant"],
+    enum: ['user', 'assistant'],
     required: true,
   },
   content: {
@@ -14,7 +14,7 @@ const messageSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-});
+})
 
 const conversationSchema = new mongoose.Schema(
   {
@@ -33,11 +33,10 @@ const conversationSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" },
-  }
-);
+    timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
+  },
+)
 
-const Conversation =
-  models.Conversation || mongoose.model("Conversation", conversationSchema);
+const Conversation = models.Conversation || mongoose.model('Conversation', conversationSchema)
 
-export default Conversation;
+export default Conversation

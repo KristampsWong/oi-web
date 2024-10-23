@@ -5,6 +5,7 @@ import Logo from '@/components/Logo'
 import { closeSidebar } from '@/store/chat-reducer'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '@/store/store'
+import { useRouter } from 'next/navigation'
 
 type Conversation = {
   id: string
@@ -14,6 +15,7 @@ function ConversationHistory({
 }: {
   conversationIds: Conversation[]
 }) {
+  const router = useRouter()
   return (
     <>
       {conversationIds.length === 0 ? (
@@ -25,13 +27,15 @@ function ConversationHistory({
       ) : (
         <>
           {conversationIds.map((conversation: Conversation) => (
-            <a
-              href={`/c/${conversation.id}`}
+            <button
               className="flex items-center p-2 hover:bg-gray-100 hover:rounded-lg w-full"
               key={conversation.id}
+              onClick={() => {
+                router.push(`/c/${conversation.id}`)
+              }}
             >
               <span>{conversation.id}</span>
-            </a>
+            </button>
           ))}
         </>
       )}
@@ -45,12 +49,13 @@ export default function SidebarContent() {
   const isSidebarCollapsed = useSelector(
     (state: RootState) => state.chat.chat.isSidebarCollapsed,
   )
-
+  const router = useRouter()
   return (
     <div
       className={`${
         isSidebarCollapsed ? 'w-64 visible' : ' w-0 invisible'
       } z-[1] flex-shrink-0 overflow-x-hidden transition-all duration-300 border-r border-gray-200 absolute sm:relative h-full bg-white`}
+      id="sidebar"
     >
       <div className="flex flex-col px-4 w-64">
         <div className="text-gray-800 flex flex-col gap-4">
@@ -67,15 +72,15 @@ export default function SidebarContent() {
             </button>
           </div>
 
-          <a
+          <button
             className="flex items-center gap-2 hover:bg-gray-100 hover:rounded-lg w-full p-2"
-            href="/"
+            onClick={() => router.push('/')}
           >
             <span className="flex items-center justify-center">
               <Edit size={22} />
             </span>
             <span>New conversation</span>
-          </a>
+          </button>
         </div>
         <div className="mt-4">
           <h2 className="text-lg font-semibold mb-2">History</h2>

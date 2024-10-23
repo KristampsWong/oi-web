@@ -1,12 +1,6 @@
-'use client'
-
 import React from 'react'
-import { Edit, Sidebar, LogOut } from 'react-feather'
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '@/store/store'
-import { openSidebar, closeSidebar } from '@/store/chat-reducer'
-import { useRouter } from 'next/navigation'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import { LogOut } from 'react-feather'
+import { signIn, signOut } from 'next-auth/react'
 import Image from 'next/image'
 import {
   DropdownMenu,
@@ -16,41 +10,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { auth } from '@/auth'
+import SidebarButton from './sidebar-button'
 
-export default function Header() {
-  const isSidebarCollapsed = useSelector(
-    (state: RootState) => state.chat.chat.isSidebarCollapsed,
-  )
-  const dispatch = useDispatch()
-  const router = useRouter()
-  const { data: session } = useSession()
+export default async function Header() {
+  const session = await auth()
   const { image, email } = session?.user ?? {}
 
   return (
     <div className="flex justify-between w-full">
       <div className="text-lg font-semibold text-zinc-600 flex gap-4 items-center h-14">
-        <div className={`${!isSidebarCollapsed ? 'flex' : 'hidden'}`}>
-          {session && (
-            <button
-              className="hover:bg-neutral-100 transition-colors duration-300 p-2 rounded-lg flex items-center justify-center "
-              type="button"
-              onClick={() => {
-                dispatch(openSidebar())
-              }}
-            >
-              <Sidebar size={23} />
-            </button>
-          )}
-          <button
-            className="hover:bg-neutral-100 transition-colors duration-300 p-2 rounded-lg flex items-center justify-center"
-            type="button"
-            onClick={() => {
-              router.push('/')
-            }}
-          >
-            <Edit size={22} />
-          </button>
-        </div>
+        {session && <SidebarButton session={session} />}
         <h4>Chat with Pion</h4>
       </div>
 
@@ -75,14 +45,19 @@ export default function Header() {
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Billing</DropdownMenuItem>
             <DropdownMenuItem>Team</DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => {
-                dispatch(closeSidebar())
-                signOut()
-              }}
-            >
-              <LogOut size={16} />
-              Logout
+            <DropdownMenuItem asChild>
+              <form
+                action={async () => {
+                  'use server'
+
+                  await signOut()
+                }}
+              >
+                <button type="submit">
+                  <LogOut size={16} />
+                  Logout
+                </button>
+              </form>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

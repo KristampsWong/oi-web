@@ -1,6 +1,5 @@
 'use client'
 
-import { auth } from '@/auth'
 import type { ChatRequestOptions } from 'ai'
 import { useRef, useEffect } from 'react'
 import { ArrowUp } from 'react-feather'
@@ -39,7 +38,6 @@ export default function MultimodalInput({
   useEffect(() => {
     adjustTextareaHeight()
   }, [input])
-  const token = 'eybdd'
   return (
     <div className="mx-auto w-full items-center flex flex-col">
       <div
